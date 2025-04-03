@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 export default function Home() {
-  const t = useTranslations('HomePage');
+  const t = useTranslations();
   return (
     <>
       <TheHeader />
@@ -16,7 +16,7 @@ export default function Home() {
             href="https://nextjs.org/docs/app/getting-started/installation"
             target="_blank"
           >
-            {t("readMore")}
+            {t("HomePage.readMore")}
           </Link>
         </Button>
       </div>
