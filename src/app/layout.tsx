@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "../shared/providers/ThemeProvider";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import {NextIntlClientProvider} from 'next-intl';
 
 import "./styles/global.css";
+import { getLocale } from "next-intl/server";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,15 +23,15 @@ export const metadata: Metadata = {
 
 type RootLayoutTypeProps = Readonly<{ children: React.ReactNode }>;
 
-const queryClient = new QueryClient();
+export default async function RootLayout({ children }: RootLayoutTypeProps) {
+  const locale = await getLocale();
 
-export default function RootLayout({ children }: RootLayoutTypeProps) {
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <QueryClientProvider client={queryClient}>
+        <NextIntlClientProvider>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -40,8 +40,7 @@ export default function RootLayout({ children }: RootLayoutTypeProps) {
           >
             {children}
           </ThemeProvider>
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
