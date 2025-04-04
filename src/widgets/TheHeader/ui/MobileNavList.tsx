@@ -8,6 +8,7 @@ import { Button } from "@/shared/ui/button";
 import { Menu } from "lucide-react";
 import { Logo } from "@/shared/ui/Logo";
 import { navlist } from "@/shared/constants/navlist";
+import { ThemeDropdown } from "@/features/ThemeDropdown";
 
 export const MobileNavList: React.FC = () => {
   const [open, setOpen] = React.useState(false);
@@ -22,6 +23,7 @@ export const MobileNavList: React.FC = () => {
       </SheetTrigger>
       <SheetContent side="bottom" className="px-6 pt-4 pb-12">
         <Logo />
+        <ThemeDropdown />
         <ul className="list-none">
           {navlist.map(({ href, label }) => (
             <li key={href} className="pt-3">

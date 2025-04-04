@@ -1,0 +1,15 @@
+{
+  "landing": {
+    "title": "The React Framework for the Web!",
+    "readMore": "Read more"
+  },
+  "notfound": {
+    "title": "Sorry, the page was not found",
+    "description": "Report the error to us or go to the main page",
+    "gohome": "Return to the main page"
+  },
+  "theme": {
+    "dark": "Dark",
+    "light": "Light"
+  }
+}

@@ -2,6 +2,7 @@ import { FC } from "react";
 import { NavList } from "./NavList";
 import { MobileNavList } from "./MobileNavList";
 import { Logo } from "@/shared/ui/Logo";
+import { ThemeDropdown } from "@/features/ThemeDropdown";
 
 export const TheHeader: FC = () => {
   return (
@@ -10,6 +11,7 @@ export const TheHeader: FC = () => {
         <div className="flex justify-between items-center">
           <Logo />
           <NavList className="max-sm:hidden" />
+          <ThemeDropdown className="max-sm:hidden" />
           <MobileNavList />
         </div>
       </div>

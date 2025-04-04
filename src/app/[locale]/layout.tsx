@@ -1,28 +1,24 @@
 import { ThemeProvider } from "../../shared/providers/ThemeProvider";
 import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages } from "next-intl/server";
+import { getLocale } from "next-intl/server";
 
 import "./styles/global.css";
+import { TheHeader } from "@/widgets/TheHeader";
 
 type RootLayoutTypeProps = Readonly<{ children: React.ReactNode }>;
 
 export default async function RootLayout({ children }: RootLayoutTypeProps) {
   const locale = await getLocale();
-  const messages = getMessages();
 
   return (
     <html lang={locale}>
       <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider>
+          <ThemeProvider attribute="class" defaultTheme={"dark"}>
+            <TheHeader />
             {children}
-          </NextIntlClientProvider>
-        </ThemeProvider>
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
