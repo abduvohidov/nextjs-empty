@@ -1,5 +1,5 @@
 "use client";
-import * as React from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/shared/lib/utils";
@@ -9,21 +9,29 @@ import { Menu } from "lucide-react";
 import { Logo } from "@/shared/ui/Logo";
 import { navlist } from "@/shared/constants/navlist";
 import { ThemeDropdown } from "@/features/ThemeDropdown";
+import { LanguageSwitcher } from "@/features/LanguageSwitcher";
+import { DialogTitle } from "@radix-ui/react-dialog";
 
 export const MobileNavList: React.FC = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
+      <DialogTitle></DialogTitle>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="sm:hidden">
-          <Menu className="!size-" />
+        <Button variant="ghost" size="icon" className="lg:hidden">
+          <Menu className="!size-6" />
         </Button>
       </SheetTrigger>
       <SheetContent side="bottom" className="px-6 pt-4 pb-12">
         <Logo />
-        <ThemeDropdown />
+        <div className="flex item-center gap-5">
+          <Suspense fallback={null}>
+            <LanguageSwitcher />
+          </Suspense>
+          <ThemeDropdown />
+        </div>
         <ul className="list-none">
           {navlist.map(({ href, label }) => (
             <li key={href} className="pt-3">

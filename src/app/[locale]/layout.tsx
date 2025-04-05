@@ -1,20 +1,39 @@
 import { ThemeProvider } from "../../shared/providers/ThemeProvider";
 import { NextIntlClientProvider } from "next-intl";
-import { getLocale } from "next-intl/server";
+import { getMessages, setRequestLocale } from "next-intl/server";
+import { TheHeader } from "@/widgets/TheHeader";
+import { notFound } from "next/navigation";
+import { routing } from "@/shared/config/i18n/routing";
 
 import "./styles/global.css";
-import { TheHeader } from "@/widgets/TheHeader";
 
-type RootLayoutTypeProps = Readonly<{ children: React.ReactNode }>;
+type RootLayoutTypeProps = Readonly<{
+  children: React.ReactNode;
+  params: { locale: string };
+}>;
 
-export default async function RootLayout({ children }: RootLayoutTypeProps) {
-  const locale = await getLocale();
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export default async function RootLayout({
+  children,
+  params,
+}: RootLayoutTypeProps) {
+  const { locale } = await params;
+
+  if (!routing.locales.includes(locale)) {
+    notFound();
+  }
+
+  setRequestLocale(locale);
+  const messages = await getMessages();
 
   return (
     <html lang={locale}>
       <body>
-        <NextIntlClientProvider>
-          <ThemeProvider attribute="class" defaultTheme={"dark"}>
+        <NextIntlClientProvider messages={messages}>
+          <ThemeProvider attribute="class" defaultTheme="dark">
             <TheHeader />
             {children}
           </ThemeProvider>
