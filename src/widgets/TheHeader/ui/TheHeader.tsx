@@ -11,6 +11,7 @@ export const TheHeader: FC = () => {
       <div className="container mx-auto pt-5 px-10">
         <div className="flex justify-between items-center">
           <Logo />
+          <MobileNavList />
           <NavList className="max-lg:hidden" />
 
           <div className="max-lg:hidden flex item-center gap-5">
@@ -19,8 +20,6 @@ export const TheHeader: FC = () => {
             </Suspense>
             <ThemeDropdown />
           </div>
-
-          <MobileNavList />
         </div>
       </div>
     </header>
